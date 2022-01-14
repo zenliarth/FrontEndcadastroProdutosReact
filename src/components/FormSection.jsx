@@ -17,6 +17,7 @@ const FormSection = (props) => {
     }, []);
 
   const notify = () => toast('Produto adicionado com sucesso!');
+  
 
   function handleSubmit(e) {
     e.preventDefault();

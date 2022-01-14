@@ -16,7 +16,7 @@ const Header = () => {
               <div className="px-1 pb-1  flex h-full items-center">
               <HiOutlineHome />
               </div>
-              Perfil
+              Home
             </a>
           </li>
           <li className="h-full flex itens-center justify-center gap-2">
