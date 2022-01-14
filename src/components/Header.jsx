@@ -20,11 +20,11 @@ const Header = () => {
             </a>
           </li>
           <li className="h-full flex itens-center justify-center gap-2">
-            <a className="flex text-xl hover:text-indigo-300" href="/profile">
+            <a className="flex text-xl hover:text-indigo-300" href="#profile">
               <div className="px-1 pb-1 flex items-center">
                 <HiOutlineUser />
               </div>
-              Perfil
+              Profile
             </a>
           </li>
           <li className="flex h-full itens-center">
@@ -32,7 +32,7 @@ const Header = () => {
               className="flex itens-center justify-center text-xl hover:text-indigo-300"
               href="/about"
             >
-              Quem Somos
+              About
             </a>
           </li>
         </ul>

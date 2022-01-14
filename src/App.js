@@ -2,6 +2,7 @@ import './App.css';
 import Header from './components/Header';
 import Section from './components/Section';
 import FormSection from './components/FormSection';
+import StockSection from './components/StockSection';
 
 
 function App(props) {
@@ -10,6 +11,7 @@ function App(props) {
       <Header />
       <Section />
       <FormSection />
+      <StockSection />
     </div>
   );
 }

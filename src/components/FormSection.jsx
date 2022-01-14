@@ -4,6 +4,8 @@ import Button from '@mui/material/Button';
 import ProductsList from './ProductsList';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
+import Search from './Search';
 
 const FormSection = (props) => {
   const [name, setName] = useState('');
@@ -13,11 +15,10 @@ const FormSection = (props) => {
   const [listItens, setListItens] = useState([]);
 
   useEffect(() => {
-      getProducts();
-    }, []);
+    getProducts();
+  }, []);
 
   const notify = () => toast('Produto adicionado com sucesso!');
-  
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -26,7 +27,6 @@ const FormSection = (props) => {
 
   function createProduct() {
     const newProduct = {
-      id: Math.floor(Math.random() * 1000),
       name,
       price,
       quantity,
@@ -41,38 +41,25 @@ const FormSection = (props) => {
       return;
     } else {
       const newProduct = createProduct();
-      const listProducts = localStorage.getItem('products');
-      if(listProducts.length === 0) {
-        const list = [newProduct];
-        localStorage.setItem('products', JSON.stringify(list));
-      } else {
-        const list = JSON.parse(listProducts);
-        list.push(newProduct);
-        localStorage.setItem('products', JSON.stringify(list));
-    }
+      axios
+        .post('http://localhost:4000/products', newProduct)
+        .then(() => {
+        })
+        .catch(() => {
+          alert('Erro ao salvar produto');
+        });
         notify();
+        getProducts();
         setName('');
         setPrice('');
         setQuantity('');
         setDescription('');
-        getProducts();
     }
   }
   function getProducts() {
-    const products = JSON.parse(localStorage.getItem('products'));
-    if(products !== null) {
-        setListItens(products);
-        localStorage.setItem('products', JSON.stringify(products));
-    } else {
-        setListItens([]);
-        localStorage.setItem('products', JSON.stringify([]));
-    }
-  }
-  function removeProduct(id) {
-    const products = JSON.parse(localStorage.getItem('produtos'));
-    const filterProduct = products.filter((produto) => produto.id !== id);
-    localStorage.setItem('produtos', JSON.stringify(filterProduct));
-    getProducts();
+    axios.get('http://localhost:4000/products').then((response) => {
+      setListItens(response.data);
+    });
   }
 
   return (
@@ -133,22 +120,29 @@ const FormSection = (props) => {
           </form>
         </div>
         <div className="w-3/5 mx-auto pt-20">
-          <h1 className="text-4xl font-bold text-center text-gray-900 w-11/12">
-            Lista de Produtos
+          <h1 className="text-4xl pt-4 font-bold text-center text-gray-900 w-11/12">
+            Buscar Produto
           </h1>
-          <div className="py-8 w-10/12 mx-auto">
-            {
-                listItens.length > 0 ? (
-                    <ProductsList products={listItens} remove={removeProduct} getProducts={getProducts}/>
-                ) : (
-                    <div className="w-full flex flex-col items-center justify-center">
-                        <h1 className="text-xl text-gray-900">
-                            Nenhum produto cadastrado ...
-                        </h1>
-                    </div>
-                )
-            }
-          </div>
+          <Search products={listItens}/>
+          {/* <div className=" w-10/12 mx-auto">
+            {listItens.length > 0 ? (
+              <div>
+                <h1 className="text-3xl py-4 font-bold text-center text-gray-900 w-11/12 mx-auto">
+                  Mostrando todos os produtos
+                </h1>
+                <ProductsList
+                  products={listItens}
+                  getProducts={getProducts}
+                />
+              </div>
+            ) : (
+              <div className="w-full flex flex-col items-center justify-center">
+                <h1 className="text-xl text-gray-900">
+                  Nenhum produto cadastrado ...
+                </h1>
+              </div>
+            )}
+          </div> */}
         </div>
       </div>
     </div>
