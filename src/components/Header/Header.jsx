@@ -6,8 +6,8 @@ const Header = () => {
     <div className="flex w-full h-20">
       <div className="flex justify-between w-10/12 mx-auto py-4">
         <div className="w-40 h-full">
-          <a className="text-xl text-white" href="/">
-            Logo
+          <a href="/">
+            <img width="150" src="/logo.png" alt="Logo" />
           </a>
         </div>
         <ul className="flex h-full items-center justify-center gap-4 pt-4 text-white">
