@@ -1,22 +1,16 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
-import ProductsList from './ProductsList';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-import Search from './Search';
+import Search from '../Search/Search';
 
-const FormSection = (props) => {
+const FormSection = () => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [quantity, setQuantity] = useState('');
   const [description, setDescription] = useState('');
-  const [listItens, setListItens] = useState([]);
-
-  useEffect(() => {
-    getProducts();
-  }, []);
 
   const notify = () => toast('Produto adicionado com sucesso!');
 
@@ -49,18 +43,13 @@ const FormSection = (props) => {
           alert('Erro ao salvar produto');
         });
         notify();
-        getProducts();
         setName('');
         setPrice('');
         setQuantity('');
         setDescription('');
     }
   }
-  function getProducts() {
-    axios.get('http://localhost:4000/products').then((response) => {
-      setListItens(response.data);
-    });
-  }
+  
 
   return (
     <div className="w-full h-screen flex bg-white">
@@ -82,6 +71,7 @@ const FormSection = (props) => {
               type="text"
               id="name"
               value={name}
+              maxLength="20"
               onChange={(e) => setName(e.target.value)}
             />
             <label className="text-xl text-gray-900" htmlFor="preco">
@@ -123,26 +113,7 @@ const FormSection = (props) => {
           <h1 className="text-4xl pt-4 font-bold text-center text-gray-900 w-11/12">
             Buscar Produto
           </h1>
-          <Search products={listItens}/>
-          {/* <div className=" w-10/12 mx-auto">
-            {listItens.length > 0 ? (
-              <div>
-                <h1 className="text-3xl py-4 font-bold text-center text-gray-900 w-11/12 mx-auto">
-                  Mostrando todos os produtos
-                </h1>
-                <ProductsList
-                  products={listItens}
-                  getProducts={getProducts}
-                />
-              </div>
-            ) : (
-              <div className="w-full flex flex-col items-center justify-center">
-                <h1 className="text-xl text-gray-900">
-                  Nenhum produto cadastrado ...
-                </h1>
-              </div>
-            )}
-          </div> */}
+          <Search />
         </div>
       </div>
     </div>

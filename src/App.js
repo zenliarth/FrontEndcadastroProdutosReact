@@ -1,8 +1,8 @@
 import './App.css';
-import Header from './components/Header';
-import Section from './components/Section';
-import FormSection from './components/FormSection';
-import StockSection from './components/StockSection';
+import Header from './components/Header/Header';
+import Section from './components/Section/Section';
+import FormSection from './components/FormSection/FormSection';
+import StockSection from './components/StockSection/StockSection';
 
 
 function App(props) {
