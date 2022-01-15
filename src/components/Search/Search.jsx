@@ -8,6 +8,7 @@ const Search = () => {
   const [error, setError] = useState('');
   const [isNull, setIsNull] = useState(false);
 
+
   const handleSearch = () => {
     if (products.lenght === 0) {
       setIsNull(true);
@@ -19,6 +20,7 @@ const Search = () => {
       axios
         .get(`http://localhost:4000/products/${inputProduct}`)
         .then((response) => {
+          console.log(response.data);
           if (response.data === '') {
             return;
           } else {
